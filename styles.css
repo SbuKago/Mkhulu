@@ -40,18 +40,22 @@ body {
 
 /* Logo */
 .logo {
-    color: #F6EDBF;
-    font-size: 24px;
-    font-weight: bold;
+    height: 65px;
+    /* controls size */
+    width: auto;
+    /* keeps proportions */
+    display: block;
 }
+
 
 /* Nav Links */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 50px;
     margin: 0;
     padding: 0;
+    font-size: 23px;
 }
 
 .nav-links a {
@@ -62,13 +66,14 @@ body {
 
 .nav-links a:hover {
     color: #8F4526;
+    text-shadow: #ffffff;
 }
 
 /* Order Button */
 .order-btn {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     background-color: #F6EDBF;
     color: #8F4526;
     padding: 8px 16px;
