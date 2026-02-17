@@ -32,12 +32,124 @@
             <i class="bi bi-cart-plus-fill"></i> Order
         </a>
     </nav>
+    </div>
+
+    <div>
+        <img src="images/mkhulu.jpeg" class="mkhulu fade-in" alt="mkhulu">
+
+        <h2 class="fade-in">About Mkhulu's</h2>
+
+        <div class="about-box fade-in">
+            <p>
+                This is a fast food place that sells delicious kotas at Etwatwa that will leave you sucking your fingers
+                after eating. It also sells ribs, fries, wings and other finger foods. They have a delivery service via
+                Mashesha
+                Deliveries with a proximity that extends to Crystal Park and Putfontein.
+            </p>
+        </div>
+
+    </div>
 
 </body>
 
-<p>
-    This is a fast food place that sells delicious kotas at Etwatwa that’ll leave you sucking your fingers after eating.
-    It also sells ribs, fries, wings and other finger foods. They have a delivery service via Mashesha Deliveries with a
-    proximity that extends to Crystal Park and Putfontein.</p>
+
+<footer>
+    © 2026 Mkhulu's On Main | Built for Growth 🚀
+</footer>
+
+
+<style>
+    .mkhulu {
+        height: 350px;
+        /* controls size */
+        width: 350px;
+        /* equal height & width for perfect circle */
+        object-fit: cover;
+        /* fills circle without stretching */
+        border-radius: 50%;
+        /* makes it circular */
+        display: block;
+        margin: 60px auto 0 auto;
+        /* top margin 60px, auto left/right, 0 bottom */
+        border: 5px solid #fff;
+        /* white circular border */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        /* optional shadow */
+    }
+
+    h2 {
+        font-size: 55px;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 20px;
+    }
+
+    .about-box {
+        max-width: 500px;
+        /* limits box width */
+        margin: 2rem auto;
+        /* centers the box horizontally */
+        padding: 1.5rem 2rem;
+        /* space inside the box */
+        background-color: #000000;
+        /* white box */
+        border-radius: 15px;
+        /* rounded corners */
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.115);
+        /* subtle shadow */
+        text-align: center;
+        /* center text */
+        line-height: 1.6;
+        /* better readability */
+        font-size: 1rem;
+        /* comfortable text size */
+        color: #dbdbdb;
+        /* dark text */
+    }
+
+    .fade-in {
+        opacity: 0;
+        /* start invisible */
+        transform: translateY(30px);
+        /* slightly down */
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    /* visible class triggers fade in */
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* optional: stagger delay using CSS variable */
+    .fade-in {
+        transition-delay: var(--delay, 0s);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const faders = document.querySelectorAll(".fade-in");
+
+        const options = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver(function (entries, observer) {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // stagger delay: 0.2s per element
+                    entry.target.style.setProperty('--delay', `${index * 0.3}s`);
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target); // fade in once, stay visible
+                }
+            });
+        }, options);
+
+        faders.forEach(fader => {
+            observer.observe(fader);
+        });
+    });
+</script>
 
 </html>
