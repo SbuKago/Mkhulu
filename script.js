@@ -119,6 +119,11 @@ window.onclick = function(event) {
     }
 }
 
-//About us scroll
+//mobile
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("active");
+}
+
+
 
 

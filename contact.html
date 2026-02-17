@@ -14,24 +14,28 @@
 <body>
 
     <nav class="navbar">
-        <!-- Logo -->
-        <img src="images/LOGO.avif" class="logo" alt="Logo">
 
-        <!-- Nav Links -->
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="menu.html">Menu</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+    <img src="images/LOGO.avif" class="logo" alt="Logo">
 
-        <!-- Order Button -->
-        <!-- Order Button -->
-        <a href="order.html" class="order-btn">
-            <i class="bi bi-cart-plus-fill"></i> Order
-        </a>
-    </nav>
+    <!-- Hamburger Button -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="bi bi-list"></i>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <a href="order.html" class="order-btn">
+        <i class="bi bi-cart-plus-fill"></i> Order
+    </a>
+
+</nav>
+
 
     <form class="form">
         <h1>Get in touch</h1>
