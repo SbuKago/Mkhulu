@@ -97,3 +97,24 @@ cards.forEach(card => {
     });
 });
 
+//Button menu views
+function showMenu(imagePath) {
+    const modal = document.getElementById('menuModal');
+    const menuImage = document.getElementById('menuImage');
+
+    menuImage.src = imagePath; // Set the image
+    modal.style.display = "block"; // Show modal
+}
+
+function closeMenu() {
+    const modal = document.getElementById('menuModal');
+    modal.style.display = "none"; // Hide modal
+}
+
+// Close modal if clicked outside the image
+window.onclick = function(event) {
+    const modal = document.getElementById('menuModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

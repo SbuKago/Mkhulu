@@ -52,7 +52,7 @@
                 <h3>Porsche</h3>
             </div>
 
-            <div class="card" style="background-image: url('images/range.avif');">
+            <div class="card" style="background-image: url('images/range.webp');">
                 <div class="overlay">
                     <p>Chips, lettuce, Russian, cheese. cheese griller.</p>
                     <div class="price">R45.00</div>
@@ -72,6 +72,76 @@
         </div>
     </section>
 
+    <section class="section">
+        <h2>Other meals</h2>
+
+        <div class="menu-grid2">
+
+            <div class="card" style="background-image: url('images/spaykos.webp');">
+                <div class="overlay">
+                    <p>Local Spaykos from small to large size</p>
+                    <div class="price">From R15.00</div>
+                    <button>Order now</button>
+                </div>
+                <h3>Spykos</h3>
+            </div>
+
+
+            <div class="card" style="background-image: url('images/FCBurger.avif');">
+                <div class="overlay">
+                    <p>Prego, Rib Burger and Beef Burger</p>
+                    <div class="price">From R40.00</div>
+                    <button>Order now</button>
+                </div>
+                <h3>Fatcake Burger</h3>
+            </div>
+
+            <div class="card" style="background-image: url('images/pizza.webp');">
+                <div class="overlay">
+                    <p>Medium / Large size, Vegan/Meat,</p>
+                    <p>Different dilicious flavours to choose from.</p>
+                    <div class="price"> From R60.00</div>
+                    <button>Order now</button>
+                </div>
+                <h3>Pizza</h3>
+            </div>
+
+            <div class="card" style="background-image: url('images/mccla.avif');">
+                <div class="overlay">
+                    <p>McClaren, Maserati, Greek Salad, Chicken Salad & more</p>
+                    <div class="price">From R45.00</div>
+                    <button>Order now</button>
+                </div>
+                <h3>Healthy Meals</h3>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div>
+            <div class="menu-buttons">
+                <button class="menu-btn" onclick="showMenu('images/menu.jpg')">Menu</button>
+                <button class="menu-btn" onclick="showMenu('images/hot.jpg')">Hot Bev</button>
+                <button class="menu-btn" onclick="showMenu('images/fat.jpg')">Spaykos & Fatcakes Menu</button>
+                <button class="menu-btn" onclick="showMenu('images/pzzmenu.jpg')">Pizza Menu</button>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="menuModal" class="modal">
+                <span class="close" onclick="closeMenu()">&times;</span>
+                <img class="modal-content" id="menuImage" src="" alt="Menu">
+            </div>
+
+
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Mkhulu's On Main | Built for Growth 🚀
+    </footer>
+
+
+    <!----styles-->
     <style>
         .section {
             padding: 2rem;
@@ -83,11 +153,15 @@
             margin-bottom: 2rem;
         }
 
-        .menu-grid {
+        /* Apply same grid layout to all menu grids */
+        .menu-grid,
+        .menu-grid1,
+        .menu-grid2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
         }
+
 
         .card {
             position: relative;
