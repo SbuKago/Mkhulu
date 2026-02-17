@@ -56,3 +56,44 @@ function resetInterval() {
     clearInterval(slideInterval);
     slideInterval = setInterval(nextSlide, 3000);
 }
+
+const cards = document.querySelectorAll('.card');
+const hoverBox = document.querySelector('.hover-preview');
+const preview = hoverBox.querySelector('img');
+
+cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        const imgSrc = card.getAttribute('data-img');
+        if (imgSrc) preview.src = imgSrc;
+
+        hoverBox.classList.add('show');
+
+        // Position hover preview smartly
+        const rect = card.getBoundingClientRect();
+        const hoverWidth = hoverBox.offsetWidth;
+        const hoverHeight = hoverBox.offsetHeight;
+        const padding = 10;
+
+        // Calculate top
+        let top = rect.top + window.scrollY;
+        if (top + hoverHeight > window.innerHeight + window.scrollY) {
+            top = window.innerHeight + window.scrollY - hoverHeight - padding;
+        }
+
+        // Calculate left: show right by default
+        let left = rect.right + 20 + window.scrollX;
+
+        // If it goes off right edge, show left
+        if (left + hoverWidth > window.innerWidth + window.scrollX) {
+            left = rect.left - hoverWidth - 20 + window.scrollX;
+        }
+
+        hoverBox.style.top = top + 'px';
+        hoverBox.style.left = left + 'px';
+    });
+
+    card.addEventListener('mouseleave', () => {
+        hoverBox.classList.remove('show');
+    });
+});
+
