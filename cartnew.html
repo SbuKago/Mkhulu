@@ -44,6 +44,29 @@
             /* Optional: makes the logo circular */
         }
 
+        /* Removes link styling and keeps the flex alignment */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            /* Removes underline from the text */
+            color: inherit;
+            /* Keeps the text color the same as your H1 */
+            cursor: pointer;
+        }
+
+        .logo-link:hover .logo {
+            transform: scale(1.05);
+            /* Slight grow effect when hovering */
+            transition: 0.3s ease;
+        }
+
+        .logo-link:hover h1 {
+            opacity: 0.8;
+            /* Subtle feedback when hovering over the text */
+        }
+
         /* Adjust h1 margin since the container now handles spacing */
         h1 {
             margin: 0;
@@ -89,7 +112,7 @@
         }
 
         .checkout-section {
-            padding: 20px;
+            padding: 15px;
             background: #222;
             border-top: 1px solid #333;
             display: flex;
@@ -100,7 +123,7 @@
         .details-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .details-form input,
@@ -136,6 +159,26 @@
             color: #ffbb00;
             padding-top: 10px;
             border-top: 2px solid #333;
+        }
+
+        textarea.full-width {
+            grid-column: span 2;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #1c1c1c;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            resize: none;
+            /* Prevents users from breaking the layout by resizing */
+        }
+
+        @media (max-width: 900px) {
+            textarea.full-width {
+                grid-column: span 1;
+                /* Adjusts for the single-column mobile view */
+            }
         }
 
         /* ================= MENU ITEMS ================= */
@@ -240,11 +283,14 @@
 
     <div class="container">
         <div class="brand-header">
-            <img src="images/LOGO.avif" alt="Mkhulu's Logo" class="logo">
-            <h1>Mkhulu's on main</h1>
+            <a href="index.html" class="logo-link">
+                <img src="images/LOGO.avif" alt="Mkhulu's Logo" class="logo">
+                <h1>Mkhulu's on main</h1>
+            </a>
         </div>
-        <p class="subtitle"></p>
-        <div id="menu-sections"></div>
+    </div>
+    <p class="subtitle"></p>
+    <div id="menu-sections"></div>
     </div>
 
     <div id="cart-pnl">
@@ -254,12 +300,16 @@
             <div class="details-form">
                 <input type="text" id="cust-name" placeholder="Name & Surname *" required>
                 <input type="tel" id="cust-phone" placeholder="Phone Number *" required>
-                <select id="order-type">
+                <select id="order-type" required>
+                    <option disabled selected>Delivery or Collection?</option>
                     <option value="Collection">Collection</option>
                     <option value="Delivery">Delivery</option>
                 </select>
-                <input type="text" id="order-time" placeholder="Time (Optional)">
+                <input type="time" id="order-time" placeholder="Time (Optional)">
                 <input type="text" id="cust-address" class="full-width" placeholder="Delivery Address (Optional)">
+                <textarea id="special-note" class="full-width"
+                    placeholder="Special Instructions (e.g., No onions, extra napkins, gate code...)"
+                    rows="3"></textarea>
             </div>
             <button class="btn-whatsapp" onclick="sendToWhatsApp()">🚀 Send Order via WhatsApp</button>
             <div class="total-display">
@@ -403,6 +453,7 @@
             const type = document.getElementById('order-type').value;
             const address = document.getElementById('cust-address').value;
             const time = document.getElementById('order-time').value;
+            const note = document.getElementById('special-note').value; // Get the note
             const items = Object.entries(cart);
 
             if (!name || !phone) return alert("Please enter your name and phone number.");
@@ -410,42 +461,32 @@
 
             const myWhatsApp = "27780421867";
 
-            // Using Unicode escapes so the emojis NEVER break
-            const iconOrder = "\u{1F4CB}";  // 📋
-            const iconUser = "\u{1F464}";  // 👤
-            const iconPhone = "\u{1F4DE}";  // 📞
-            const iconTime = "\u{231A}";   // ⌚
-            const iconMap = "\u{1F4CD}";  // 📍
-            const iconFood = "\u{1F374}";  // 🍴
-            const iconItem = "\u{25AA}\u{FE0F}"; // ▪️
-            const iconCash = "\u{1F4B0}";  // 💰
-
-            let msg = `*NEW ORDER: ${type.toUpperCase()}* ${iconOrder}\n`;
+            let msg = `*NEW ORDER: ${type.toUpperCase()}*\n`;
             msg += `--------------------------\n`;
-            msg += `${iconUser} *Customer:* ${name}\n`;
-            msg += `${iconPhone} *Phone:* ${phone}\n`;
+            msg += `*Customer:* ${name}\n`;
+            msg += `*Phone:* ${phone}\n`;
 
-            if (time) msg += `${iconTime} *Requested Time:* ${time}\n`;
-            if (type === "Delivery" && address) msg += `${iconMap} *Address:* ${address}\n`;
+            if (time) msg += `*Requested Time:* ${time}\n`;
+            if (type === "Delivery" && address) msg += `*Address:* ${address}\n`;
+
+            // Add the special note if it isn't empty
+            if (note.trim() !== "") msg += `*Note:* ${note}\n`;
 
             msg += `--------------------------\n`;
-            msg += `${iconFood} *ORDER DETAILS:*\n`;
+            msg += `*ORDER DETAILS:*\n`;
 
             let total = 0;
             items.forEach(([itemName, info]) => {
-                msg += `${iconItem} ${info.qty} x ${itemName} (R${(info.price * info.qty).toFixed(2)})\n`;
+                msg += `- ${info.qty} x ${itemName} (R${(info.price * info.qty).toFixed(2)})\n`;
                 total += info.price * info.qty;
             });
 
             msg += `--------------------------\n`;
-            msg += `${iconCash} *TOTAL: R${total.toFixed(2)}*`;
+            msg += `*TOTAL: R${total.toFixed(2)}*`;
 
-            // Encode the entire string for the URL
             const finalLink = `https://wa.me/${myWhatsApp}?text=${encodeURIComponent(msg)}`;
-
             window.open(finalLink, '_blank');
         }
-
         initMenu();
     </script>
 </body>
