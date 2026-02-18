@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mkhulu's Kitchen Menu</title>
+    <style>
+        :root {
+            --primary: #e67e22;
+            --secondary: #27ae60;
+            --dark: #2c3e50;
+            --bg: #fdfaf6;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 10px;
+            padding-bottom: 450px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            background: var(--dark);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            margin-top: 25px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+        }
+
+        .price {
+            color: var(--primary);
+            font-weight: bold;
+            margin: 0 10px;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        button.add-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Floating Cart & Details */
+        #cart-pnl {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 3px solid var(--primary);
+            padding: 15px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .details-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .details-form input,
+        .details-form select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .total-display {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🌯 Mkhulu's Kitchen</h1>
+        <p class="subtitle">Delicious Food, Ordered in Seconds</p>
+        <div id="menu-sections"></div>
+    </div>
+
+    <div id="cart-pnl">
+        <div class="total-display">Total: R<span id="total-val">0.00</span></div>
+
+        <div class="details-form">
+            <input type="text" id="cust-name" placeholder="Name & Surname *" required>
+            <input type="tel" id="cust-phone" placeholder="Phone Number *" required>
+            <select id="order-type">
+                <option value="Collection">Collection</option>
+                <option value="Delivery">Delivery</option>
+            </select>
+            <input type="text" id="order-time" placeholder="Time (Optional)">
+            <input type="text" id="cust-address" class="full-width" placeholder="Delivery Address (Optional)">
+        </div>
+
+        <div id="cart-items-list"></div>
+        <button class="btn-whatsapp" onclick="sendToWhatsApp()">🚀 Send Order via WhatsApp</button>
+    </div>
+
+    <script>
+        const fullMenu = [
+            {
+                cat: "🌯 Spaykos & Amagwinya", items: [
+                    { n: "Small Spaykos", p: 15 }, { n: "Medium Spaykos", p: 40 },
+                    { n: "Large Spaykos", p: 80 }, { n: "Mkhulu’s Spaykos", p: 120 },
+                    { n: "Regular Gwinya (Small)", p: 1 }, { n: "Regular Gwinya (Small + Mince)", p: 3 },
+                    { n: "Regular Gwinya (Big)", p: 7 }, { n: "Regular Gwinya (Big + Mince)", p: 10 }
+                ]
+            },
+            {
+                cat: "🍕 Pizza", items: [
+                    { n: "Chicken Pizza (M)", p: 70 }, { n: "Chicken Pizza (L)", p: 120 },
+                    { n: "Salami Pizza (M)", p: 70 }, { n: "Salami Pizza (L)", p: 120 },
+                    { n: "Hawaiian Pizza (M)", p: 70 }, { n: "Hawaiian Pizza (L)", p: 120 },
+                    { n: "Beef Pizza (M)", p: 80 }, { n: "Beef Pizza (L)", p: 140 },
+                    { n: "Vegetarian Pizza (M)", p: 60 }, { n: "Vegetarian Pizza (L)", p: 100 },
+                    { n: "Extra Cheese", p: 15 }
+                ]
+            },
+            {
+                cat: "🍔 Burgers & Fast Food", items: [
+                    { n: "Fatcake Burger: Prego", p: 40 }, { n: "Fatcake Burger: Rib", p: 50 }, { n: "Fatcake Burger: Beef", p: 40 },
+                    { n: "Mini Cooper (Russian/Cheese)", p: 40 }, { n: "Range Rover", p: 45 },
+                    { n: "Porsche", p: 50 }, { n: "Audi RS7", p: 60 }, { n: "Lamborghini", p: 70 },
+                    { n: "Bugatti", p: 75 }, { n: "Rolls Royce", p: 90 }
+                ]
+            },
+            {
+                cat: "🥩 Grills & Mains", items: [
+                    { n: "Oxtail with Mash/Rice", p: 160 }, { n: "Beef Stew with Samp/Pap", p: 80 },
+                    { n: "Chicken Fillet with Chips/Salad", p: 80 }, { n: "Lamb Chop with Chips/Veg", p: 120 },
+                    { n: "Steak with Chips/Veg", p: 120 }, { n: "400g Sparerib and Chips", p: 120 },
+                    { n: "1kg Sparerib and Chips", p: 200 }, { n: "4 Buffalo Wings & Chips", p: 110 },
+                    { n: "8 Crumbed Wings & Chips", p: 110 }
+                ]
+            },
+            {
+                cat: "🥗 Healthy Eats", items: [
+                    { n: "Greek Salad", p: 45 }, { n: "Chicken Salad", p: 60 },
+                    { n: "Mogodu (Tripe) with Samp/Pap", p: 70 }, { n: "Manqina (Hooves) with Samp/Pap", p: 60 },
+                    { n: "Hard Body Chicken with Samp/Pap", p: 70 }, { n: "Isibindi (Liver) with Pap", p: 60 }
+                ]
+            },
+            {
+                cat: "☕ Hot Beverages", items: [
+                    { n: "Tea / Coffee", p: 15 }, { n: "Mocha / Cappuccino / Choc", p: 20 }
+                ]
+            },
+            {
+                cat: "🍪 Scones & Biscuits", items: [
+                    { n: "Scones (Packet)", p: 12 }, { n: "Biscuits (Packet)", p: 15 },
+                    { n: "Scones (5 Litre)", p: 150 }, { n: "Biscuits (5 Litre)", p: 180 },
+                    { n: "Scones (10 Litre)", p: 300 }, { n: "Biscuits (10 Litre)", p: 350 },
+                    { n: "Scones (20 Litre)", p: 600 }, { n: "Biscuits (20 Litre)", p: 700 }
+                ]
+            }
+        ];
+
+        let cart = {};
+
+        function initMenu() {
+            const div = document.getElementById('menu-sections');
+            fullMenu.forEach(section => {
+                let html = `<h2>${section.cat}</h2>`;
+                section.items.forEach(item => {
+                    html += `<div class="item">
+                    <span class="item-name">${item.n}</span>
+                    <span class="price">R${item.p}</span>
+                    <button class="add-btn" onclick="addToCart('${item.n}', ${item.p})">+</button>
+                </div>`;
+                });
+                div.innerHTML += html;
+            });
+        }
+
+        function addToCart(name, price) {
+            if (cart[name]) { cart[name].qty += 1; }
+            else { cart[name] = { price: price, qty: 1 }; }
+            renderCart();
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const totalSpan = document.getElementById('total-val');
+            list.innerHTML = '';
+            let total = 0;
+            for (const [name, info] of Object.entries(cart)) {
+                total += info.price * info.qty;
+                list.innerHTML += `<div class="cart-row"><span>${info.qty}x ${name}</span><span>R${(info.price * info.qty).toFixed(2)}</span></div>`;
+            }
+            totalSpan.innerText = total.toFixed(2);
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const type = document.getElementById('order-type').value;
+            const address = document.getElementById('cust-address').value;
+            const time = document.getElementById('order-time').value;
+            const items = Object.entries(cart);
+
+            if (!name || !phone) return alert("Please enter your name and phone number.");
+            if (items.length === 0) return alert("Your cart is empty!");
+
+            const myWhatsApp = "27123456789"; // UPDATE THIS NUMBER
+
+            let msg = `*NEW ORDER: ${type.toUpperCase()}*%0A`;
+            msg += `--------------------------%0A`;
+            msg += `👤 *Customer:* ${name}%0A`;
+            msg += `📞 *Phone:* ${phone}%0A`;
+            if (time) msg += `⏰ *Requested Time:* ${time}%0A`;
+            if (type === "Delivery" && address) msg += `📍 *Address:* ${address}%0A`;
+            msg += `--------------------------%0A*ORDER DETAILS:*%0A`;
+
+            let total = 0;
+            items.forEach(([itemName, info]) => {
+                msg += `• ${info.qty} x ${itemName} (R${(info.price * info.qty).toFixed(2)})%0A`;
+                total += info.price * info.qty;
+            });
+
+            msg += `--------------------------%0A*TOTAL: R${total.toFixed(2)}*`;
+            window.open(`https://wa.me/${myWhatsApp}?text=${msg}`, '_blank');
+        }
+
+        initMenu();
+    </script>
+
+</body>
+
+</html>
