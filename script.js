@@ -124,6 +124,19 @@ function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");
 }
 
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+            // 1. Prevent the default form submission (stop page refresh)
+            e.preventDefault();
 
+            // 2. Hide the form
+            document.getElementById('contactForm').style.display = 'none';
+
+            // 3. Show the success message
+            const successBox = document.getElementById('successMessage');
+            successBox.style.display = 'block';
+
+            // Optional: Log the data (or send to an API later)
+            console.log("Form submitted successfully!");
+        });
 
 
