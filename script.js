@@ -6,15 +6,17 @@ let currentIndex = 0;
 let slideInterval = setInterval(nextSlide, 3000); // auto-slide every 3s
 
 function goToSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.remove('active');
+    // 1. Update the classes for dots (Visual feedback)
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
     });
-    dots.forEach(dot => dot.classList.remove('active'));
 
-    slides[index].classList.add('active');
-    dots[index].classList.add('active');
-
-    document.querySelector('.slider').style.transform = `translateX(-${index * 100}%)`;
+    // 2. The smooth move
+    // This shifts the entire row of slides left by 100% increments
+    const slider = document.querySelector('.slider');
+    slider.style.transform = `translateX(-${index * 100}%)`;
+    
+    // 3. Update state
     currentIndex = index;
 }
 

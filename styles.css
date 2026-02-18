@@ -122,6 +122,7 @@ header p {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 500%;
+    will-change: transform;
     /* 5 slides */
 }
 
