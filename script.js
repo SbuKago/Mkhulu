@@ -1,175 +1,145 @@
+// --- 1. Slider Logic ---
 const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
 const prev = document.querySelector('.prev');
 const next = document.querySelector('.next');
 let currentIndex = 0;
-let slideInterval = setInterval(nextSlide, 3000); // auto-slide every 3s
+let slideInterval = setInterval(nextSlide, 3000);
 
 function goToSlide(index) {
-    // 1. Update the classes for dots (Visual feedback)
+    if (!dots.length) return;
     dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
     });
 
-    // 2. The smooth move
-    // This shifts the entire row of slides left by 100% increments
     const slider = document.querySelector('.slider');
-    slider.style.transform = `translateX(-${index * 100}%)`;
-    
-    // 3. Update state
+    if (slider) {
+        slider.style.transform = `translateX(-${index * 100}%)`;
+    }
     currentIndex = index;
 }
 
-// Next slide
 function nextSlide() {
-    let nextIndex = currentIndex + 1;
-    if(nextIndex >= slides.length) nextIndex = 0;
+    if (!slides.length) return;
+    let nextIndex = (currentIndex + 1) % slides.length;
     goToSlide(nextIndex);
 }
 
-// Previous slide
 function prevSlide() {
-    let prevIndex = currentIndex - 1;
-    if(prevIndex < 0) prevIndex = slides.length - 1;
+    if (!slides.length) return;
+    let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
     goToSlide(prevIndex);
 }
 
-// Event Listeners
-next.addEventListener('click', () => {
-    nextSlide();
-    resetInterval();
-});
-
-prev.addEventListener('click', () => {
-    prevSlide();
-    resetInterval();
-});
-
-dots.forEach(dot => {
-    dot.addEventListener('click', (e) => {
-        const index = parseInt(e.target.dataset.index);
-        goToSlide(index);
-        resetInterval();
-    });
-});
-
-// Reset auto-slide interval when user interacts
 function resetInterval() {
     clearInterval(slideInterval);
     slideInterval = setInterval(nextSlide, 3000);
 }
 
-const cards = document.querySelectorAll('.card');
-const hoverBox = document.querySelector('.hover-preview');
-const preview = hoverBox.querySelector('img');
+// Add listeners only if buttons exist
+next?.addEventListener('click', () => { nextSlide(); resetInterval(); });
+prev?.addEventListener('click', () => { prevSlide(); resetInterval(); });
 
-cards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        const imgSrc = card.getAttribute('data-img');
-        if (imgSrc) preview.src = imgSrc;
-
-        hoverBox.classList.add('show');
-
-        // Position hover preview smartly
-        const rect = card.getBoundingClientRect();
-        const hoverWidth = hoverBox.offsetWidth;
-        const hoverHeight = hoverBox.offsetHeight;
-        const padding = 10;
-
-        // Calculate top
-        let top = rect.top + window.scrollY;
-        if (top + hoverHeight > window.innerHeight + window.scrollY) {
-            top = window.innerHeight + window.scrollY - hoverHeight - padding;
+dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+        const index = parseInt(e.target.dataset.index);
+        if (!isNaN(index)) {
+            goToSlide(index);
+            resetInterval();
         }
-
-        // Calculate left: show right by default
-        let left = rect.right + 20 + window.scrollX;
-
-        // If it goes off right edge, show left
-        if (left + hoverWidth > window.innerWidth + window.scrollX) {
-            left = rect.left - hoverWidth - 20 + window.scrollX;
-        }
-
-        hoverBox.style.top = top + 'px';
-        hoverBox.style.left = left + 'px';
-    });
-
-    card.addEventListener('mouseleave', () => {
-        hoverBox.classList.remove('show');
     });
 });
 
-//Button menu views
+// --- 2. Hover Preview Logic ---
+const cards = document.querySelectorAll('.card');
+const hoverBox = document.querySelector('.hover-preview');
+const preview = hoverBox?.querySelector('img');
+
+if (hoverBox && preview) {
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const imgSrc = card.getAttribute('data-img');
+            if (imgSrc) preview.src = imgSrc;
+            hoverBox.classList.add('show');
+
+            const rect = card.getBoundingClientRect();
+            let top = rect.top + window.scrollY;
+            let left = rect.right + 20 + window.scrollX;
+
+            if (left + hoverBox.offsetWidth > window.innerWidth + window.scrollX) {
+                left = rect.left - hoverBox.offsetWidth - 20 + window.scrollX;
+            }
+
+            hoverBox.style.top = top + 'px';
+            hoverBox.style.left = left + 'px';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            hoverBox.classList.remove('show');
+        });
+    });
+}
+
+// --- 3. Menu Modal Logic ---
 function showMenu(imagePath) {
     const modal = document.getElementById('menuModal');
     const menuImage = document.getElementById('menuImage');
-
-    menuImage.src = imagePath; // Set the image
-    modal.style.display = "block"; // Show modal
+    if (modal && menuImage) {
+        menuImage.src = imagePath;
+        modal.style.display = "block";
+    }
 }
 
 function closeMenu() {
     const modal = document.getElementById('menuModal');
-    modal.style.display = "none"; // Hide modal
+    if (modal) modal.style.display = "none";
 }
 
-// Close modal if clicked outside the image
 window.onclick = function(event) {
     const modal = document.getElementById('menuModal');
     if (event.target == modal) {
         modal.style.display = "none";
     }
-}
+};
 
-//mobile
-function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("active");
-}
+// --- 4. Form Logic ---
+const contactForm = document.getElementById('contactForm');
+contactForm?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    const successBox = document.getElementById('successMessage');
+    if (successBox) successBox.style.display = 'block';
+});
 
-document.getElementById('contactForm').addEventListener('submit', function (e) {
-            // 1. Prevent the default form submission (stop page refresh)
-            e.preventDefault();
-
-            // 2. Hide the form
-            document.getElementById('contactForm').style.display = 'none';
-
-            // 3. Show the success message
-            const successBox = document.getElementById('successMessage');
-            successBox.style.display = 'block';
-
-            // Optional: Log the data (or send to an API later)
-            console.log("Form submitted successfully!");
-        });
-
-        const socialData = [
-  { name: 'facebook', icon: 'fa-facebook-f', url: '...' },
-  { name: 'tiktok', icon: 'fa-tiktok', url: '...' },
-  { name: 'instagram', icon: 'fa-instagram', url: '...' },
+// --- 5. Social Links (Fixed from React to Vanilla JS) ---
+const socialData = [
+    { name: 'facebook', icon: 'fa-facebook-f', url: '#' },
+    { name: 'tiktok', icon: 'fa-tiktok', url: '#' },
+    { name: 'instagram', icon: 'fa-instagram', url: '#' },
 ];
 
-function SocialLinks() {
-  return (
-    <div className="social-icons">
-      {socialData.map((social) => (
-        <a key={social.name} href={social.url} className={`social-btn ${social.name}`}>
-          <i className={`fab ${social.icon}`}></i>
+function renderSocialLinks() {
+    const container = document.querySelector('.social-container'); // Make sure this div exists in HTML
+    if (!container) return;
+
+    const html = socialData.map(social => `
+        <a href="${social.url}" class="social-btn ${social.name}">
+            <i class="fab ${social.icon}"></i>
         </a>
-      ))}
-    </div>
-  );
+    `).join('');
+
+    container.innerHTML = `<div class="social-icons">${html}</div>`;
 }
+renderSocialLinks();
 
+// --- 6. Mobile Nav Logic ---
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
 
-  const hamburger = document.querySelector(".hamburger");
-  const navLinks = document.querySelector(".nav-links");
+hamburger?.addEventListener("click", () => {
+    navLinks?.classList.toggle("active");
+});
 
-  hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-  });
-
-  // Optional: Close the menu when a link is clicked
-  document.querySelectorAll(".nav-links li a").forEach(n => n.addEventListener("click", () => {
-    navLinks.classList.remove("active");
-  }));
-
-
+document.querySelectorAll(".nav-links li a").forEach(n => 
+    n.addEventListener("click", () => navLinks?.classList.remove("active"))
+);

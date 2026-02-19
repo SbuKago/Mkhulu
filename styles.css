@@ -463,34 +463,52 @@ a[href^="tel"] {
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-
     .hamburger {
         display: block;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: #111;
-        flex-direction: column;
-        text-align: center;
-        display: none;
-        padding: 15px 0;
-    }
-
-    .nav-links li {
-        padding: 10px 0;
-    }
-
-    .nav-links.active {
-        display: flex;
+        /* Show hamburger */
     }
 
     .order-btn {
         display: none;
-        /* optional: hide order button on small screens */
+        /* Hide desktop button */
+    }
+
+    .nav-links {
+        /* Position it as a dropdown */
+        position: absolute;
+        top: 100%;
+        /* Sits right below navbar */
+        left: 0;
+        width: 100%;
+        background: rgba(17, 17, 17, 0.95);
+        backdrop-filter: blur(10px);
+
+        /* Layout */
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 0;
+
+        /* The Animation Logic */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out, padding 0.3s ease;
+        display: flex;
+        /* Keep as flex to align items center */
+    }
+
+    /* When JS adds the .active class */
+    .nav-links.active {
+        max-height: 500px;
+        /* Big enough to fit all links */
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
     }
 }
 
