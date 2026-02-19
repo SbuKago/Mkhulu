@@ -628,3 +628,41 @@ a[href^="tel"] {
         /* Adjust based on menu size */
     }
 }
+
+/* Responsive adjustments for mobile devices */
+@media screen and (max-width: 768px) {
+    .item {
+        flex-direction: column;
+        /* Stack elements vertically */
+        border-radius: 20px;
+        /* Reduce pill shape to a rounded card */
+        padding: 20px;
+        text-align: center;
+        gap: 10px;
+        /* Adds spacing between stacked elements */
+    }
+
+    .item-name,
+    .price-center,
+    .btn-wrapper {
+        flex: none;
+        /* Reset the flex-grow property */
+        width: 100%;
+        /* Ensure they take full width */
+        text-align: center;
+        /* Center text for a cleaner mobile look */
+        justify-content: center;
+    }
+
+    .item:hover {
+        transform: none;
+        /* Optional: Disable lift on touch devices */
+    }
+}
+
+@media (hover: hover) {
+    .item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+}
