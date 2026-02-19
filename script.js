@@ -141,4 +141,21 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
             console.log("Form submitted successfully!");
         });
 
+        const socialData = [
+  { name: 'facebook', icon: 'fa-facebook-f', url: '...' },
+  { name: 'tiktok', icon: 'fa-tiktok', url: '...' },
+  { name: 'instagram', icon: 'fa-instagram', url: '...' },
+];
+
+function SocialLinks() {
+  return (
+    <div className="social-icons">
+      {socialData.map((social) => (
+        <a key={social.name} href={social.url} className={`social-btn ${social.name}`}>
+          <i className={`fab ${social.icon}`}></i>
+        </a>
+      ))}
+    </div>
+  );
+}
 

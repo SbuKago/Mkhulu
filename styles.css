@@ -523,10 +523,53 @@ a[href^="tel"] {
     /* Smooth color change if you add one */
 }
 
-/* STOP the animation on hover */
+/* STOP the Animation on hover */
 .btn-bounce-only:hover {
     animation-play-state: paused;
     background-color: #d35400;
     /* Optional: darken the color slightly on hover */
     cursor: pointer;
 }
+
+.social-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.social-container h3 {
+    color: #F6EDBF;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-btn {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effects */
+.social-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.facebook:hover { background: #1877F2; border-color: #1877F2; }
+.tiktok:hover { background: #000000; border-color: #ff0050; box-shadow: 2px 2px #ff0050, -2px -2px #00f2ea; }
+.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; }
