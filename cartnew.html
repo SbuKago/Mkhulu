@@ -225,6 +225,54 @@
             cursor: pointer;
         }
 
+        /* Container for the buttons */
+        .menu-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows buttons to move to next line on small screens */
+            justify-content: center;
+            gap: 10px;
+            /* Even spacing between buttons */
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        /* Individual Button Styling */
+        .menu-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #e67e22;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            flex: 1 1 auto;
+            /* Buttons grow to fill space but keep their shape */
+            max-width: 150px;
+            /* Prevents buttons from getting too huge on desktop */
+        }
+
+        /* The Menu Content Area */
+        #menu-sections {
+            width: 100%;
+            max-width: 800px;
+            /* Limits size on desktop for readability */
+            margin: 0 auto;
+            /* Centers the menu */
+            text-align: center;
+        }
+
+        /* THE CRITICAL FIX: Ensures images fit the screen */
+        #menu-sections img {
+            max-width: 100%;
+            /* Image will never be wider than the phone */
+            height: auto;
+            /* Maintains aspect ratio (no stretching) */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
         h2 {
             margin-top: 30px;
             color: #F6EDBF;
@@ -557,6 +605,8 @@
         }
         function closeMenu() { document.getElementById("menuModal").style.display = "none"; }
         window.onclick = function (e) { if (e.target == document.getElementById("menuModal")) closeMenu(); }
+
+
 
         initMenu();
     </script>
