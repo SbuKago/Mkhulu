@@ -135,6 +135,26 @@
     .fade-in {
         transition-delay: var(--delay, 0s);
     }
+
+    /* Hamburger hidden on desktop */
+    .hamburger {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: white;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        .hamburger {
+            display: block;
+            /* Show hamburger */
+        }
+
+        .order-btn {
+            display: none;
+            /* Hide desktop button */
+        }
 </style>
 
 <script>
