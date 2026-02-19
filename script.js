@@ -159,3 +159,17 @@ function SocialLinks() {
   );
 }
 
+
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
+
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  // Optional: Close the menu when a link is clicked
+  document.querySelectorAll(".nav-links li a").forEach(n => n.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+  }));
+
+

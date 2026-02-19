@@ -570,6 +570,43 @@ a[href^="tel"] {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.facebook:hover { background: #1877F2; border-color: #1877F2; }
-.tiktok:hover { background: #000000; border-color: #ff0050; box-shadow: 2px 2px #ff0050, -2px -2px #00f2ea; }
-.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; }
+.facebook:hover {
+    background: #1877F2;
+    border-color: #1877F2;
+}
+
+.tiktok:hover {
+    background: #000000;
+    border-color: #ff0050;
+    box-shadow: 2px 2px #ff0050, -2px -2px #00f2ea;
+}
+
+.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    border-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #111;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+
+        /* Smooth Transition Logic */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        display: flex;
+        /* Keep flex, but hide with height */
+    }
+
+    .nav-links.active {
+        max-height: 500px;
+        /* Adjust based on menu size */
+    }
+}
