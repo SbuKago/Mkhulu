@@ -36,7 +36,7 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 5px;
-            color: #F6EDBF;
+            color: #f6bfbf;
         }
 
         .logo {
@@ -232,15 +232,54 @@
             display: inline-block;
         }
 
+        /* The main row container */
         .item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background: white;
-            margin-bottom: 8px;
-            border-radius: 10px;
-            color: #333;
+            justify-content: space-between;
+            background: #fff;
+            color: #111;
+            margin-bottom: 12px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            /* Makes it a pill shape like your image */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Left side: The food name */
+        .item-name {
+            flex: 1;
+            text-align: left;
+            font-weight: 400;
+        }
+
+        /* Right side: The button container */
+        .btn-wrapper {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* The yellow button styling */
+        .add-btn {
+            background-color: #ffc107;
+            /* The yellow from your image */
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.1);
         }
 
         .add-btn {
@@ -432,11 +471,14 @@
             fullMenu.forEach(section => {
                 let html = `<h2>${section.cat}</h2>`;
                 section.items.forEach(item => {
+                    // Updated HTML structure with three distinct parts
                     html += `<div class="item">
-                        <span class="item-name">${item.n}</span>
-                        <span class="price">R${item.p}</span>
-                        <button class="add-btn" onclick="addToCart('${item.n.replace(/'/g, "\\'")}', ${item.p})">+</button>
-                    </div>`;
+                <span class="item-name">${item.n}</span>
+                <span class="price-center">R${item.p}</span>
+                <div class="btn-wrapper">
+                    <button class="add-btn" onclick="addToCart('${item.n.replace(/'/g, "\\'")}', ${item.p})">+</button>
+                </div>
+            </div>`;
                 });
                 div.innerHTML += html;
             });

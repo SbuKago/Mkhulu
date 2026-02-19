@@ -224,14 +224,30 @@
             width: 100%;
             background: rgba(0, 0, 0, 0.7);
             color: white;
+
+            /* These three center the content vertically and horizontally */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
+            /* This ensures the text inside the paragraphs/divs is centered */
             text-align: center;
+
             opacity: 0;
             transition: opacity 0.3s;
             padding: 1rem;
+            box-sizing: border-box;
+            /* Prevents padding from pushing content off-center */
+        }
+
+        .overlay .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            width: 100%;
+            /* Ensures the block takes full width to align center */
+            text-align: center;
         }
 
         .card:hover .overlay {
