@@ -143,6 +143,69 @@
             }
         }
 
+        `
+
+        /* ================= FLOATING MOBILE CART BUTTON ================= */
+        #mobile-cart-btn {
+            display: none;
+            /* Hidden until items are added */
+            position: fixed;
+            bottom: 25px;
+            right: 20px;
+            /* Brand Gradient: Gold to Orange */
+            background: linear-gradient(135deg, #ffbb00, #e67e22);
+            color: #111;
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid #111;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            z-index: 1500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Attention-grabbing pulse animation */
+        @keyframes cart-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 25px rgba(255, 187, 0, 0.4);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        @media (max-width: 900px) {
+            #mobile-cart-btn.visible {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                animation: cart-pulse 2s infinite ease-in-out;
+            }
+        }
+
+        #mobile-cart-btn:active {
+            transform: scale(0.9);
+        }
+
+        #mobile-cart-count {
+            background: #111;
+            color: #ffbb00;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
         /* ================= MENU & ITEMS ================= */
         .menu-buttons {
             display: flex;
