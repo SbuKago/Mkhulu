@@ -526,6 +526,33 @@ a[href^="tel"] {
 }
 
 /* The specific class for this button */
+/* 1. The Wrapper handles the infinite floating/bouncing */
+.bounce-wrapper {
+    display: inline-block;
+    animation: single-bounce 1.2s infinite ease-in-out;
+}
+
+/* 2. The Button handles the styling and the "Press" effect */
+/* 1. This centers the button horizontally and adds vertical spacing */
+.button-container {
+    display: flex;
+    justify-content: center;
+    /* Horizontal center */
+    align-items: center;
+    /* Vertical center */
+    padding: 40px 0;
+    /* Space above and below the button */
+    width: 100%;
+    /* Ensure it spans the full screen width */
+}
+
+/* 2. The Wrapper (remains the same) */
+.bounce-wrapper {
+    display: inline-block;
+    animation: single-bounce 1.2s infinite ease-in-out;
+}
+
+/* 3. The Button (your existing styles) */
 .btn-bounce-only {
     display: inline-block;
     text-decoration: none;
@@ -535,18 +562,25 @@ a[href^="tel"] {
     border-radius: 5px;
     font-family: sans-serif;
     font-weight: bold;
-    /* Run the animation infinitely */
-    animation: single-bounce 1.2s infinite ease-in-out;
-    transition: background-color 0.3s ease;
-    /* Smooth color change if you add one */
+    transition: transform 0.9s ease-out, background-color 0.6s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* STOP the Animation on hover */
-.btn-bounce-only:hover {
-    animation-play-state: paused;
-    background-color: #d35400;
-    /* Optional: darken the color slightly on hover */
-    cursor: pointer;
+/* THE CLICK EFFECT */
+.btn-bounce-only:active {
+    transform: scale(0.8);
+}
+
+@keyframes single-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
 .social-container {
