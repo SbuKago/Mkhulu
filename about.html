@@ -180,6 +180,18 @@
             observer.observe(fader);
         });
     });
+
+    // --- 6. Mobile Nav Logic ---
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+
+    hamburger?.addEventListener("click", () => {
+        navLinks?.classList.toggle("active");
+    });
+
+    document.querySelectorAll(".nav-links li a").forEach(n =>
+        n.addEventListener("click", () => navLinks?.classList.remove("active"))
+    );
 </script>
 
 </html>
