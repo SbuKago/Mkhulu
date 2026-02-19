@@ -493,3 +493,40 @@ a[href^="tel"] {
         /* optional: hide order button on small screens */
     }
 }
+
+/* Define the movement */
+@keyframes single-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* The specific class for this button */
+.btn-bounce-only {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #e67e22;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-weight: bold;
+    /* Run the animation infinitely */
+    animation: single-bounce 1.2s infinite ease-in-out;
+    transition: background-color 0.3s ease;
+    /* Smooth color change if you add one */
+}
+
+/* STOP the animation on hover */
+.btn-bounce-only:hover {
+    animation-play-state: paused;
+    background-color: #d35400;
+    /* Optional: darken the color slightly on hover */
+    cursor: pointer;
+}
