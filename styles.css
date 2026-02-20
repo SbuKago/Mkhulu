@@ -354,6 +354,18 @@ footer {
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
+    z-index: 9999; /* Ensures it stays on top of other elements */
+    transition: all 0.3s ease;
+}
+
+/* Mobile Adjustments (Screen width less than 768px) */
+@media (max-width: 768px) {
+    .whatsapp-btn {
+        bottom: 10px;    /* Move it closer to the edge */
+        right: 10px;     /* Move it closer to the edge */
+        padding: 10px 15px; /* Make it slightly smaller */
+        font-size: 14px;
+    }
 }
 
 /* -------------------- Links -------------------- */
