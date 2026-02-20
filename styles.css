@@ -368,50 +368,50 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #25D366;
+    background: #25D366;
     color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
     text-decoration: none;
-    z-index: 9999;
-
-    /* The Centering Magic */
+    font-weight: 600;
     display: flex;
     align-items: center;
-    /* Vertical center */
     justify-content: center;
-    /* Horizontal center */
-
-    /* Desktop Appearance */
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: 600;
+    z-index: 9999;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
     transition: all 0.3s ease;
 }
 
-/* Mobile View: Perfect Circle with Centered Icon */
+/* Mobile View (The Fix) */
 @media (max-width: 768px) {
     .whatsapp-btn {
         width: 60px !important;
-        /* Equal width */
+        /* Force a square width */
         height: 60px !important;
-        /* Equal height */
+        /* Force a square height */
         padding: 0 !important;
-        /* Clear padding to prevent off-centering */
+        /* Remove padding */
         border-radius: 50% !important;
-        /* Perfect circle */
+        /* Force a circle */
+        overflow: hidden !important;
+        /* Hide any text that spills out */
+        font-size: 0 !important;
+        /* Shrink text to nothing */
     }
 
-    /* Hide the text label */
-    .whatsapp-btn span {
-        display: none !important;
-    }
-
-    /* Size the icon */
+    /* Target the icon specifically to keep it visible */
     .whatsapp-btn i,
-    .whatsapp-btn svg {
-        font-size: 30px;
-        /* Adjust size as needed */
-        margin: 0;
-        /* Remove any stray margins */
+    .whatsapp-btn svg,
+    .whatsapp-btn img {
+        font-size: 30px !important;
+        /* If using FontAwesome */
+        width: 30px !important;
+        /* If using an image/SVG */
+        height: auto;
+        display: block !important;
+        margin: 0 auto;
+        color: #ffffff;
     }
 }
 
