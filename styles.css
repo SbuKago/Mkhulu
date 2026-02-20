@@ -368,51 +368,50 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #25D366;
+    background-color: #25D366;
     color: white;
-    padding: 15px 20px;
-    border-radius: 50px;
     text-decoration: none;
-    font-weight: 600;
+    z-index: 9999;
+
+    /* The Centering Magic */
     display: flex;
     align-items: center;
+    /* Vertical center */
     justify-content: center;
-    z-index: 9999;
-    white-space: nowrap;
-    /* Prevents text from wrapping */
+    /* Horizontal center */
+
+    /* Desktop Appearance */
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
-/* Mobile View (The Fix) */
+/* Mobile View: Perfect Circle with Centered Icon */
 @media (max-width: 768px) {
     .whatsapp-btn {
         width: 60px !important;
-        /* Force a square width */
+        /* Equal width */
         height: 60px !important;
-        /* Force a square height */
+        /* Equal height */
         padding: 0 !important;
-        /* Remove padding */
+        /* Clear padding to prevent off-centering */
         border-radius: 50% !important;
-        /* Force a circle */
-        overflow: hidden !important;
-        /* Hide any text that spills out */
-        font-size: 0 !important;
-        /* Shrink text to nothing */
+        /* Perfect circle */
     }
 
-    /* Target the icon specifically to keep it visible */
+    /* Hide the text label */
+    .whatsapp-btn span {
+        display: none !important;
+    }
+
+    /* Size the icon */
     .whatsapp-btn i,
-    .whatsapp-btn svg,
-    .whatsapp-btn img {
-        font-size: 30px !important;
-        /* If using FontAwesome */
-        width: 30px !important;
-        /* If using an image/SVG */
-        height: auto;
-        display: block !important;
-        margin: 0 auto;
-        object-position: center;
-        color: #ffffff;
+    .whatsapp-btn svg {
+        font-size: 30px;
+        /* Adjust size as needed */
+        margin: 0;
+        /* Remove any stray margins */
     }
 }
 
