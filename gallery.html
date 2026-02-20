@@ -9,66 +9,110 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="styles.css" rel="stylesheet">
     <style>
-        .error-container {
-            height: 80vh;
+        /* 1. Fix the Page Flow */
+        body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
+            min-height: 100vh;
+            /* Ensures footer stays at bottom if content is short */
+            margin: 0;
 
-        .error-code {
-            font-size: 8rem;
-            font-weight: 800;
-            color: #8F4526;
-            line-height: 1;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 0px #F6EDBF;
-        }
+            /* 2. Prevent Navbar Overlap */
+            .error-container {
+                flex: 1;
+                /* Pushes the footer to the very bottom */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 60px 20px;
+                /* Increased top padding to clear the navbar */
 
-        .error-icon {
-            font-size: 4rem;
-            color: #F6EDBF;
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
+                /* Changed height to min-height so it expands if text is long */
+                min-height: calc(100vh - 150px);
             }
 
-            40% {
-                transform: translateY(-20px);
+            /* 3. Button and Footer Spacing */
+            .back-home {
+                margin-top: 20px;
+                margin-bottom: 40px;
+                /* Forces space between button and footer */
+                display: inline-block;
             }
 
-            60% {
-                transform: translateY(-10px);
+            .error-code {
+                font-size: 8rem;
+                font-weight: 800;
+                color: #8F4526;
+                line-height: 1;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 0px #F6EDBF;
             }
-        }
 
-        .error-container h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
+            .error-icon {
+                font-size: 4rem;
+                color: #F6EDBF;
+                margin-bottom: 20px;
+                animation: bounce 2s infinite;
+            }
 
-        .error-container p {
-            color: #ccc;
-            max-width: 500px;
-            margin-bottom: 30px;
-        }
+            @keyframes bounce {
 
-        .back-home {
-            padding: 15px 30px;
-            font-size: 1.1rem;
-        }
+                0%,
+                20%,
+                50%,
+                80%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                40% {
+                    transform: translateY(-20px);
+                }
+
+                60% {
+                    transform: translateY(-10px);
+                }
+            }
+
+            .error-container h2 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .error-container p {
+                color: #ccc;
+                max-width: 500px;
+                margin-bottom: 30px;
+            }
+
+            .back-home {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+
+            footer {
+                width: 100%;
+                padding: 20px;
+                background: #000;
+                text-align: center;
+                margin-top: auto;
+                /* Solidifies the footer's position at the bottom */
+            }
+
+            /* 4. Mobile Specific Adjustment */
+            @media (max-width: 480px) {
+                .error-code {
+                    font-size: 5rem;
+                    /* Smaller text so it doesn't push the footer off-screen */
+                }
+
+                .error-container {
+                    padding-top: 100px;
+                    /* Extra room for the mobile navbar/hamburger */
+                }
+            }
     </style>
 </head>
 

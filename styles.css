@@ -268,14 +268,83 @@ header p {
 /* Visit Section */
 #visit {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 10px;
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    color: #ffbb00;
+    justify-content: center;
+    gap: 15px;
+    margin: 60px auto 30px;
+    color: #F6EDBF;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 2.5rem;
 }
+
+#visit i {
+    color: #ffbb00;
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    /* Prevents icon from squishing */
+}
+
+#visit span {
+    display: inline-block;
+    overflow: hidden;
+    /* Hides characters */
+    white-space: nowrap;
+    /* Keeps text on one line */
+    border-right: 3px solid #ffbb00;
+    /* The cursor */
+    width: 0;
+    /* Start hidden */
+    animation:
+        typing 2s steps(8, end) forwards,
+        blink 0.75s step-end infinite;
+}
+
+/* Typing Animation: Adjust 'to' width to match your text length */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 200px;
+    }
+}
+
+/* Cursor Blink */
+@keyframes blink {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: #ffbb00;
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    #visit {
+        font-size: 1.8rem;
+    }
+
+    #visit span {
+        animation: typing-mobile 2s steps(8, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing-mobile {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 145px;
+        }
+    }
+}
+
 
 /* -------------------- Menu Grid -------------------- */
 
