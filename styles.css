@@ -400,6 +400,7 @@ footer {
         height: 60px !important;
         /* Force a square height */
         padding: 0 !important;
+        margin: 0 !important;
         /* Remove padding */
         border-radius: 50% !important;
         /* Force a circle */
@@ -407,6 +408,13 @@ footer {
         /* Hide any text that spills out */
         font-size: 0 !important;
         /* Shrink text to nothing */
+
+        /* 3. The Centering Logic */
+        display: flex !important;
+        align-items: center !important;
+        /* Vertical center */
+        justify-content: center !important;
+        /* Horizontal center */
     }
 
     /* Target the icon specifically to keep it visible */
@@ -420,6 +428,75 @@ footer {
         height: auto;
         display: block !important;
         margin: 0 auto;
+    }
+}
+
+/* -------------------- Mobile Navbar Fix -------------------- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 20px;
+        /* Reduced padding for more screen space */
+        justify-content: space-between;
+        height: 70px;
+        /* Fixed height for consistency */
+    }
+
+    .logo {
+        height: 45px;
+        /* Smaller logo for mobile screens */
+    }
+
+    .nav-links {
+        /* Reset and Position */
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        /* Matches the navbar height exactly */
+        left: 0;
+        width: 100%;
+        background: rgba(17, 17, 17, 0.98);
+        /* Slightly more solid for readability */
+        backdrop-filter: blur(10px);
+
+        /* The Animation Logic */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+        gap: 0;
+        /* Remove gap to use padding on links instead */
+        z-index: 999;
+    }
+
+    /* This class is toggled via JavaScript */
+    .nav-links.active {
+        max-height: 100vh;
+        /* Allow it to grow to full screen if needed */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 20px;
+        width: 100%;
+        font-size: 20px;
+        /* Slightly smaller for mobile */
+    }
+
+    /* Keep the Hamburger Visible */
+    .hamburger {
+        display: block !important;
+        padding: 10px;
+    }
+
+    /* Ensure the order button is hidden or moved inside the menu */
+    .order-btn {
+        display: none;
     }
 }
 
