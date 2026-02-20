@@ -136,6 +136,15 @@ header p {
     display: block;
 }
 
+/* Mobile Specific Tweaks */
+@media (max-width: 768px) {
+    .slider-wrapper {
+        margin: 20px auto;
+        width: 95%;
+        /* Give it more room on tiny screens */
+    }
+}
+
 /* Arrows */
 .prev,
 .next {
