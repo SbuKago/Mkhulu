@@ -363,29 +363,54 @@ footer {
 }
 
 /* Mobile View: Icon Only */
+/* Desktop Styles */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
+    transition: all 0.3s ease;
+}
+
+/* Mobile View (The Fix) */
 @media (max-width: 768px) {
     .whatsapp-btn {
-        width: 60px;
-        /* Set a fixed width */
-        height: 60px;
-        /* Set a fixed height */
-        padding: 0;
-        /* Remove padding to center the icon */
-        justify-content: center;
-        border-radius: 50%;
-        /* Makes it a circle */
-        bottom: 15px;
-        right: 15px;
+        width: 60px !important;
+        /* Force a square width */
+        height: 60px !important;
+        /* Force a square height */
+        padding: 0 !important;
+        /* Remove padding */
+        border-radius: 50% !important;
+        /* Force a circle */
+        overflow: hidden !important;
+        /* Hide any text that spills out */
+        font-size: 0 !important;
+        /* Shrink text to nothing */
     }
 
-    .whatsapp-btn span {
-        display: none;
-        /* Hides the text label */
-    }
-
-    .whatsapp-btn i {
-        font-size: 30px;
-        /* Makes the icon slightly larger on mobile */
+    /* Target the icon specifically to keep it visible */
+    .whatsapp-btn i,
+    .whatsapp-btn svg,
+    .whatsapp-btn img {
+        font-size: 30px !important;
+        /* If using FontAwesome */
+        width: 30px !important;
+        /* If using an image/SVG */
+        height: auto;
+        display: block !important;
+        margin: 0 auto;
     }
 }
 
