@@ -359,11 +359,13 @@ header p {
 
 
 /* -------------------- Locations -------------------- */
+/* Prevent horizontal scroll during animation */
 .locations {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     padding: 20px;
+    overflow-x: hidden;
 }
 
 .info {
@@ -371,20 +373,33 @@ header p {
     padding: 40px 20px;
     text-align: center;
     border-radius: 10px;
+
+    /* Animation Base State */
+    opacity: 0;
+    transition: all 1s ease-out;
 }
 
-.info p {
-    margin: 8px 0;
+/* Left side starts off-screen to the left */
+.info:nth-child(1) {
+    transform: translateX(-50px);
 }
 
-.map-link a {
-    font-size: 16px;
-    color: #ffffff;
-    text-decoration: none;
+/* Right side starts off-screen to the right */
+.info:nth-child(2) {
+    transform: translateX(50px);
 }
 
-.map-link a:hover {
-    text-decoration: underline;
+/* The class we will add via JavaScript */
+.info.appear {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Mobile fix: Stack vertically and reduce movement */
+@media (max-width: 768px) {
+    .locations {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* -------------------- Cards -------------------- */
@@ -912,4 +927,38 @@ a[href^="tel"] {
         transform: translateY(-2px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
+}
+
+const observerOptions= {
+    threshold: 0.2 // Trigger when 20% of the element is visible
+}
+
+;
+
+/* Base style for both boxes */
+.info {
+    background: #1a1a1a;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px;
+    opacity: 0;
+    /* transition: property duration timing-function delay */
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+/* LEFT BOX: Starts from the left */
+.info:nth-child(1) {
+    transform: translateX(-100px);
+}
+
+/* RIGHT BOX: Starts from the right + 0.2s delay */
+.info:nth-child(2) {
+    transform: translateX(100px);
+    transition-delay: 0.2s;
+}
+
+/* FINAL STATE: Triggered by JavaScript */
+.info.appear {
+    opacity: 1;
+    transform: translateX(0);
 }

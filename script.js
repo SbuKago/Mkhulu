@@ -143,3 +143,22 @@ hamburger?.addEventListener("click", () => {
 document.querySelectorAll(".nav-links li a").forEach(n => 
     n.addEventListener("click", () => navLinks?.classList.remove("active"))
 );
+
+const observerOptions = {
+        threshold: 0.2 // Trigger when 20% of the element is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Check if the element is entering the screen
+            if (entry.isIntersecting) {
+                entry.target.classList.add('appear');
+                
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    const infoSections = document.querySelectorAll('.info');
+    infoSections.forEach(section => observer.observe(section));
+    
