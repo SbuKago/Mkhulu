@@ -398,7 +398,7 @@ footer {
         /* Hide any text that spills out */
         font-size: 0 !important;
         /* Shrink text to nothing */
-        object-position: center;
+        position: absolute;
     }
 
     /* Target the icon specifically to keep it visible */
