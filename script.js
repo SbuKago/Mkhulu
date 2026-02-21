@@ -161,4 +161,43 @@ const observerOptions = {
 
     const infoSections = document.querySelectorAll('.info');
     infoSections.forEach(section => observer.observe(section));
-    
+
+//----operarional hours
+function updateAllStores() {
+    const now = new Date();
+    const dayIndex = now.getDay(); 
+    const currentTotalMin = (now.getHours() * 60) + now.getMinutes();
+
+    document.querySelectorAll('.store-container').forEach(store => {
+      const statusLabel = store.querySelector('.status-label');
+      const headerTime = store.querySelector('.header-time');
+      const todayRow = store.querySelector(`.day-row[data-day="${dayIndex}"]`);
+      
+      if (!todayRow) return;
+
+      const timeText = todayRow.querySelector('.hours').textContent;
+      const [openPart, closePart] = timeText.split(' - ');
+      const [openH, openM] = openPart.split(':').map(Number);
+      const [closeH, closeM] = closePart.split(':').map(Number);
+      
+      const openMin = (openH * 60) + openM;
+      const closeMin = (closeH * 60) + (closeM || 0);
+
+      if (currentTotalMin >= openMin && currentTotalMin < closeMin) {
+        statusLabel.textContent = "Open now";
+        statusLabel.style.color = "#188038";
+        headerTime.textContent = timeText;
+      } else {
+        statusLabel.textContent = "Closed now";
+        statusLabel.style.color = "#d93025";
+        headerTime.textContent = `Opens at ${openPart}`;
+      }
+
+      todayRow.classList.add('current-day-highlight');
+    });
+  }
+
+  updateAllStores();
+  // Optional: Refresh every minute to keep the status live
+  setInterval(updateAllStores, 60000);
+  updateStatus();
