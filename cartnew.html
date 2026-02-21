@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Mkhulu's on Main - Cart</title>
     <style>
         /* ================= LAYOUT & BASE ================= */
@@ -143,7 +144,7 @@
             }
         }
 
-
+        `
 
         /* ================= FLOATING MOBILE CART BUTTON ================= */
         #mobile-cart-btn {
@@ -223,6 +224,22 @@
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
+        }
+
+        .menu-btn1 {
+            background: #FEBB01;
+            color: #111;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: s-resize;
+        }
+
+        .menu-btn1:hover {
+            background: #FEBB01;
+            color: #ffffff;
+
         }
 
         /* Container for the buttons */
@@ -440,42 +457,54 @@
             border-bottom: 1px solid #333;
         }
 
-        /* Base styling for the Back to Top Button */
+        /* 2. STYLING */
         #back-to-top {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            /* Changed from right to left */
             font-size: 45px;
-            /* Desktop size */
+            /* Size for Desktop */
             color: #5f6368;
             cursor: pointer;
             z-index: 9999;
+            /* Ensures it stays on top of everything */
             transition: all 0.3s ease;
             opacity: 0;
-            visibility: hidden;
+            /* Hidden initially */
+            display: none;
+            /* Removed from flow initially */
+        }
+
+        /* When the 'show' class is added via JS */
+        #back-to-top.show {
+            opacity: 1;
+            display: block;
         }
 
         #back-to-top:hover {
-            color: #202124;
+            color: #E67D22;
+            /* Changes to green on hover to match your 'Open' status */
             transform: scale(1.1);
-            /* Slight grow effect on hover */
         }
 
-        /* Show the button when scrolling */
-        #back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* MOBILE VIEW: Adjust size for screens smaller than 600px */
+        /* MOBILE VIEW */
         @media (max-width: 600px) {
             #back-to-top {
-                font-size: 30px;
-                /* Smaller size for mobile */
+                font-size: 32px;
+                /* Smaller for mobile */
                 bottom: 15px;
                 left: 15px;
             }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Optional: adds some space above the title when you scroll to it */
+        #menu-sections h2 {
+            scroll-margin-top: 20px;
+            padding-top: 10px;
         }
     </style>
 </head>
@@ -494,6 +523,16 @@
             </a>
         </div>
 
+        <div class="menu-buttons1">
+            <button class="menu-btn1" onclick="scrollToCategory('Spaykos')">🌯 Spaykos</button>
+            <button class="menu-btn1" onclick="scrollToCategory('Pizza')">🍕 Pizza</button>
+            <button class="menu-btn1" onclick="scrollToCategory('Burgers')">🍔 Burgers</button>
+            <button class="menu-btn1" onclick="scrollToCategory('Grills')">🥩 Grills</button>
+            <button class="menu-btn1" onclick="scrollToCategory('Healthy')">🥗 Healthy</button>
+            <button class="menu-btn1" onclick="scrollToCategory('Hot')">☕ Hot Bev</button>
+            <button class="menu-btn1" onclick="scrollToCategory('Scones')">🍪 Scones</button>
+        </div>
+
         <section>
             <h1 class="emenu">Explore Our Amazing Menus</h1>
             <div class="menu-buttons">
@@ -505,6 +544,8 @@
             <div id="menu-sections"></div>
         </section>
     </div>
+
+
 
     <button id="mobile-cart-btn" onclick="toggleCart()">
         🛒 View Order (<span id="mobile-cart-count">0</span>)
@@ -650,27 +691,58 @@
         function closeMenu() { document.getElementById("menuModal").style.display = "none"; }
         window.onclick = function (e) { if (e.target == document.getElementById("menuModal")) closeMenu(); }
 
-
-
-        initMenu();
-
-        // Show arrow when user scrolls down 300px
-        window.onscroll = function () {
+        // Monitor the scroll position
+        window.addEventListener('scroll', function () {
             const btn = document.getElementById("back-to-top");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.classList.add("show");
+            // Show button after scrolling 200px
+            if (window.pageYOffset > 200) {
+                btn.style.display = "block";
+                // Small timeout to allow the fade-in effect
+                setTimeout(() => { btn.classList.add("show"); }, 10);
             } else {
                 btn.classList.remove("show");
+                setTimeout(() => {
+                    if (!btn.classList.contains('show')) btn.style.display = "none";
+                }, 300);
             }
-        };
+        });
 
-        // Smooth scroll function
+        // Smooth scroll logic
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         }
+
+        function initMenu() {
+            const div = document.getElementById('menu-sections');
+            fullMenu.forEach(section => {
+                // Create a simplified ID (e.g., "Pizza" or "Spaykos")
+                const sectionId = section.cat.split(' ')[1] || section.cat;
+
+                let html = `<h2 id="cat-${sectionId}">${section.cat}</h2>`; // Added ID here
+                section.items.forEach(item => {
+                    html += `<div class="item">
+                <span class="item-name">${item.n}</span>
+                <span class="price-center">R${item.p}</span>
+                <div class="btn-wrapper">
+                    <button class="add-btn" onclick="addToCart('${item.n.replace(/'/g, "\\'")}', ${item.p})">+</button>
+                </div>
+            </div>`;
+                });
+                div.innerHTML += html;
+            });
+        }
+
+        function scrollToCategory(id) {
+            const element = document.getElementById('cat-' + id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        initMenu();
     </script>
 </body>
 
