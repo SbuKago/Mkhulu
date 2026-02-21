@@ -113,6 +113,22 @@
             }
         }
 
+        /* 1. Base styles (for desktop/larger screens) */
+        .menu-buttons1 {
+            display: grid;
+            /* Default: 4 columns on large screens, or keep as 1fr if you want them stacked */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            /* Adds spacing between buttons */
+        }
+
+        /* 2. Mobile styles */
+        @media (max-width: 480px) {
+            .menu-buttons1 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         #cart-items-list {
             flex: 1;
             overflow-y: auto;
