@@ -113,19 +113,19 @@
             }
         }
 
-        /* 1. Base styles (for desktop/larger screens) */
-        .menu-buttons1 {
-            display: grid;
-            /* Default: 4 columns on large screens, or keep as 1fr if you want them stacked */
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            /* Adds spacing between buttons */
-        }
-
-        /* 2. Mobile styles */
-        @media (max-width: 900px) {
+        @media (max-width: 480px) {
             .menu-buttons1 {
-                grid-template-columns: repeat(2, 1fr);
+                display: grid;
+                /* Creating 4 columns forces the 7 items into 2 rows */
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .menu-btn1 {
+                /* Reduce padding and font size so 4 buttons fit side-by-side */
+                padding: 10px 5px;
+                font-size: 12px;
+                width: 100%;
             }
         }
 
