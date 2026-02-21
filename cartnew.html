@@ -297,6 +297,14 @@
             display: inline-block;
         }
 
+        h4 {
+            margin-top: 30px;
+            color: #F6EDBF;
+            border-bottom: 2px solid #ffbb00;
+            display: inline-block;
+            object-position: center;
+        }
+
         /* The main row container */
         .item {
             display: flex;
@@ -523,23 +531,28 @@
             </a>
         </div>
 
-        <div class="menu-buttons1">
-            <button class="menu-btn1" onclick="scrollToCategory('Spaykos')">🌯 Spaykos</button>
-            <button class="menu-btn1" onclick="scrollToCategory('Pizza')">🍕 Pizza</button>
-            <button class="menu-btn1" onclick="scrollToCategory('Burgers')">🍔 Burgers</button>
-            <button class="menu-btn1" onclick="scrollToCategory('Grills')">🥩 Grills</button>
-            <button class="menu-btn1" onclick="scrollToCategory('Healthy')">🥗 Healthy</button>
-            <button class="menu-btn1" onclick="scrollToCategory('Hot')">☕ Hot Bev</button>
-            <button class="menu-btn1" onclick="scrollToCategory('Scones')">🍪 Scones</button>
-        </div>
+
 
         <section>
             <h1 class="emenu">Explore Our Amazing Menus</h1>
+            <h4>Click to view our menu</h4>
             <div class="menu-buttons">
                 <button class="menu-btn" onclick="showMenu('images/menu.jpg')">Menu</button>
                 <button class="menu-btn" onclick="showMenu('images/hott.png')">Hot Bev</button>
                 <button class="menu-btn" onclick="showMenu('images/fat.jpg')">Spaykos</button>
                 <button class="menu-btn" onclick="showMenu('images/pizza.png')">Pizza</button>
+            </div>
+            <Div>
+                <h4>Click to Scoll quickly to your category/section</h4>
+            </Div>
+            <div class="menu-buttons1">
+                <button class="menu-btn1" onclick="scrollToCategory('Spaykos')">🌯 Spaykos</button>
+                <button class="menu-btn1" onclick="scrollToCategory('Pizza')">🍕 Pizza</button>
+                <button class="menu-btn1" onclick="scrollToCategory('Burgers')">🍔 Burgers</button>
+                <button class="menu-btn1" onclick="scrollToCategory('Grills')">🥩 Grills</button>
+                <button class="menu-btn1" onclick="scrollToCategory('Healthy')">🥗 Healthy</button>
+                <button class="menu-btn1" onclick="scrollToCategory('Hot')">☕ Hot Bev</button>
+                <button class="menu-btn1" onclick="scrollToCategory('Scones')">🍪 Scones</button>
             </div>
             <div id="menu-sections"></div>
         </section>
