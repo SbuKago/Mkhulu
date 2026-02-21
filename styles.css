@@ -990,12 +990,6 @@ a[href^="tel"] {
     }
 }
 
-const observerOptions= {
-    threshold: 0.2 // Trigger when 20% of the element is visible
-}
-
-;
-
 /* Base style for both boxes */
 .info {
     background: #1a1a1a;
